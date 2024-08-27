@@ -1,7 +1,7 @@
 ---
 title: "Week 2 Exercises"
 author: "J.Blondeau"
-date: "2023-08-31"
+date: "2024-08-29"
 output: html_document
 ---
 
@@ -26,6 +26,7 @@ y <- 3.14 #floating
 ```
 
 #### Character
+
 Character data types represent text or strings.
 
 ```{r}
@@ -34,7 +35,9 @@ species <- "Acropora palmata"
 greeting <- "Hello, R!"
 
 ```
+
 #### Logical (Boolean)
+
 Logical data types represent binary values: TRUE or FALSE.
 
 ```{r}
@@ -43,67 +46,6 @@ is_student <- TRUE
 is_bleached <- FALSE
 
 ```
-### Data Structures
-
-#### Vectors
-Vectors are sequences of elements of the same data type.
-
-```{r}
-# Vector example
-numbers <- c(1, 2, 3, 4, 5)
-fruits <- c("apple", "banana", "orange")
-
-```
-
-#### Data Frames
-Data frames are tabular structures with rows and columns of different data types.
-
-```{r}
-# Data frame example
-df <- data.frame(name = c("Alice", "Bob", "Charlie"),
-                 age = c(25, 30, 22),
-                 is_student = c(TRUE, FALSE, TRUE))
-
-```
-
-#### Lists
-Lists are collections of elements, which can be of different data types.
-
-```{r}
-# List example
-my_list <- list(numbers, fruits, df)
-
-```
-
-### Reading Data from External Files
-
-#### read_csv() Function
-
-The `read_csv()` function from the `readr` package allows you to read data from CSV files.
-
-```{r}
-# Reading CSV file using read_csv()
-library(readr)
-
-csv_data <- read_csv("data/sttstj_2023_boat_logs.csv", show_col_types = F)
-
-head(csv_data)
-
-```
-
-#### read_xlsx
-
-The `read_xlsx()` function from the `readxl`` package allows you to read data from excel files and specify the sheet in necessary.
-
-```{r}
-library(readxl)
-
-xlsx_data <- read_xlsx("data/sttstj_all_sites.xlsx", sheet = "locations")
-
-head(xlsx_data)
-
-```
-
 ### Inspecting data
 
 #### class() Function
@@ -141,11 +83,82 @@ glimpse(df)
 
 ```
 
+### Data Structures
+
+#### Vectors
+
+Vectors are sequences of elements of the same data type.
+
+```{r}
+# Vector example
+numbers <- c(1, 2, 3, 4, 5)
+fruits <- c("apple", "banana", "orange")
+
+## 1) What are the data types in each of te above variables?
+
+mixed <- c(1, "two")
+## 2) What do you think the data type of mixed will be?
+
+```
+
+#### Data Frames
+
+Data frames are tabular structures with rows (or records) and columns.  Individual columns must be the same data type, but you can have different columns with different data types.
+
+```{r}
+# Data frame example
+df <- data.frame(name = c("Alice", "Bob", "Charlie"),
+                 age = c(25, 30, 22),
+                 is_student = c(TRUE, FALSE, TRUE))
+
+```
+
+#### Lists
+
+Lists are collections of elements, which can be of different data types.
+
+```{r}
+# List example
+my_list <- list(numbers, fruits, df)
+
+```
+
+### Reading Data from External Files
+
+#### read_csv() Function
+
+The `read_csv()` function from the `readr` package allows you to read data from CSV files.
+
+```{r}
+# Reading CSV file using read_csv()
+library(readr)
+
+csv_data <- read_csv("data/sttstj_2023_boat_logs.csv")
+
+head(csv_data)
+
+```
+
+#### read_xlsx
+
+The `read_xlsx()` function from the \`readxl\` package allows you to read data from excel files and specify the sheet if necessary.
+
+```{r}
+library(readxl)
+
+xlsx_data <- read_xlsx("data/sttstj_all_sites.xlsx", sheet = "locations")
+
+## 1) What would happen if you removed the 'sheet =' syntax?
+
+head(xlsx_data)
+
+```
+
 ### Exporting Data to External Files
 
 #### write_csv() Function
 
-The `write_csv()` function from the `readr`` package allows you to export data to CSV files.
+The `write_csv()` function from the \`readr\`\` package allows you to export data to CSV files.
 
 ```{r}
 # Creating a data frame
@@ -174,4 +187,3 @@ df_another <- data.frame(name = c("Charlie", "David", "Shirley"),
 write_xlsx(list("Sheet1" = df, "Sheet2" = df_another), "data/excel_output.xlsx")
 
 ```
-

@@ -11,7 +11,7 @@
 
 <meta name="author" content="J.Blondeau" />
 
-<meta name="date" content="2023-08-31" />
+<meta name="date" content="2024-08-29" />
 
 <title>Week 2 Exercises</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">Week 2 Exercises</h1>
 <h4 class="author">J.Blondeau</h4>
-<h4 class="date">2023-08-31</h4>
+<h4 class="date">2024-08-29</h4>
 
 </div>
 
@@ -383,75 +383,6 @@ greeting &lt;- &quot;Hello, R!&quot;</code></pre>
 <pre class="r"><code># Logical data example
 is_student &lt;- TRUE
 is_bleached &lt;- FALSE</code></pre>
-</div>
-</div>
-<div id="data-structures" class="section level3">
-<h3>Data Structures</h3>
-<div id="vectors" class="section level4">
-<h4>Vectors</h4>
-<p>Vectors are sequences of elements of the same data type.</p>
-<pre class="r"><code># Vector example
-numbers &lt;- c(1, 2, 3, 4, 5)
-fruits &lt;- c(&quot;apple&quot;, &quot;banana&quot;, &quot;orange&quot;)</code></pre>
-</div>
-<div id="data-frames" class="section level4">
-<h4>Data Frames</h4>
-<p>Data frames are tabular structures with rows and columns of different
-data types.</p>
-<pre class="r"><code># Data frame example
-df &lt;- data.frame(name = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;),
-                 age = c(25, 30, 22),
-                 is_student = c(TRUE, FALSE, TRUE))</code></pre>
-</div>
-<div id="lists" class="section level4">
-<h4>Lists</h4>
-<p>Lists are collections of elements, which can be of different data
-types.</p>
-<pre class="r"><code># List example
-my_list &lt;- list(numbers, fruits, df)</code></pre>
-</div>
-</div>
-<div id="reading-data-from-external-files" class="section level3">
-<h3>Reading Data from External Files</h3>
-<div id="read_csv-function" class="section level4">
-<h4>read_csv() Function</h4>
-<p>The <code>read_csv()</code> function from the <code>readr</code>
-package allows you to read data from CSV files.</p>
-<pre class="r"><code># Reading CSV file using read_csv()
-library(readr)
-
-csv_data &lt;- read_csv(&quot;data/sttstj_2023_boat_logs.csv&quot;, show_col_types = F)
-
-head(csv_data)</code></pre>
-<pre><code>## # A tibble: 6 × 8
-##   fieldid date      time   DIVER_NR DIVER_NAME       lat   lon LOG_COMMENTS    
-##   &lt;chr&gt;   &lt;chr&gt;     &lt;time&gt;    &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           
-## 1 50011A  8/11/2023 09:33       525 STEVENS_MOLLY   18.2 -64.7 BLEACH          
-## 2 50011B  8/11/2023 09:33       530 MUNOZ_ROLDAN    18.2 -64.7 BLEACH          
-## 3 50011J  8/11/2023 09:33       564 BRENNAN_RACHEL  18.2 -64.7 BLEACH          
-## 4 50011X  8/11/2023 09:33       546 UZZELL_LILA     18.2 -64.7 BLEACH          
-## 5 50021A  8/11/2023 09:59       175 RICHTER_L       18.2 -64.7 SCTLD, LIONFISH,
-## 6 50021B  8/11/2023 09:59        16 CONTILLO_J      18.2 -64.7 SCTLD, LIONFISH,</code></pre>
-</div>
-<div id="read_xlsx" class="section level4">
-<h4>read_xlsx</h4>
-<p>The <code>read_xlsx()</code> function from the `readxl`` package
-allows you to read data from excel files and specify the sheet in
-necessary.</p>
-<pre class="r"><code>library(readxl)
-
-xlsx_data &lt;- read_xlsx(&quot;data/sttstj_all_sites.xlsx&quot;, sheet = &quot;locations&quot;)
-
-head(xlsx_data)</code></pre>
-<pre><code>## # A tibble: 6 × 4
-##   yr_site    lat   lon hab  
-##   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 2001_241  18.3 -64.8 PVMT 
-## 2 2001_243  18.3 -64.7 AGRF 
-## 3 2001_244  18.3 -64.7 AGRF 
-## 4 2001_247  18.3 -64.7 AGRF 
-## 5 2001_248  18.3 -64.8 PVMT 
-## 6 2001_249  18.3 -64.7 SCR</code></pre>
 </div>
 </div>
 <div id="inspecting-data" class="section level3">
@@ -486,6 +417,7 @@ str(data)</code></pre>
 overview of data frames.</p>
 <pre class="r"><code># Using glimpse() to get an overview of a data frame
 library(dplyr)</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.3.3</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -500,6 +432,91 @@ glimpse(df)</code></pre>
 ## Columns: 2
 ## $ name &lt;chr&gt; &quot;Alice&quot;, &quot;Bob&quot;, &quot;Jeremiah&quot;
 ## $ age  &lt;dbl&gt; 25, 30, 46</code></pre>
+</div>
+</div>
+<div id="data-structures" class="section level3">
+<h3>Data Structures</h3>
+<div id="vectors" class="section level4">
+<h4>Vectors</h4>
+<p>Vectors are sequences of elements of the same data type.</p>
+<pre class="r"><code># Vector example
+numbers &lt;- c(1, 2, 3, 4, 5)
+fruits &lt;- c(&quot;apple&quot;, &quot;banana&quot;, &quot;orange&quot;)
+
+## 1) What are the data types in each of te above variables?
+
+mixed &lt;- c(1, &quot;two&quot;)
+## 2) What do you think the data type of mixed will be?</code></pre>
+</div>
+<div id="data-frames" class="section level4">
+<h4>Data Frames</h4>
+<p>Data frames are tabular structures with rows (or records) and
+columns. Individual columns must be the same data type, but you can have
+different columns with different data types.</p>
+<pre class="r"><code># Data frame example
+df &lt;- data.frame(name = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;),
+                 age = c(25, 30, 22),
+                 is_student = c(TRUE, FALSE, TRUE))</code></pre>
+</div>
+<div id="lists" class="section level4">
+<h4>Lists</h4>
+<p>Lists are collections of elements, which can be of different data
+types.</p>
+<pre class="r"><code># List example
+my_list &lt;- list(numbers, fruits, df)</code></pre>
+</div>
+</div>
+<div id="reading-data-from-external-files" class="section level3">
+<h3>Reading Data from External Files</h3>
+<div id="read_csv-function" class="section level4">
+<h4>read_csv() Function</h4>
+<p>The <code>read_csv()</code> function from the <code>readr</code>
+package allows you to read data from CSV files.</p>
+<pre class="r"><code># Reading CSV file using read_csv()
+library(readr)
+
+csv_data &lt;- read_csv(&quot;data/sttstj_2023_boat_logs.csv&quot;)</code></pre>
+<pre><code>## Rows: 1138 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr  (4): fieldid, date, DIVER_NAME, LOG_COMMENTS
+## dbl  (3): DIVER_NR, lat, lon
+## time (1): time
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>head(csv_data)</code></pre>
+<pre><code>## # A tibble: 6 × 8
+##   fieldid date      time   DIVER_NR DIVER_NAME       lat   lon LOG_COMMENTS    
+##   &lt;chr&gt;   &lt;chr&gt;     &lt;time&gt;    &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           
+## 1 50011A  8/11/2023 09:33       525 STEVENS_MOLLY   18.2 -64.7 BLEACH          
+## 2 50011B  8/11/2023 09:33       530 MUNOZ_ROLDAN    18.2 -64.7 BLEACH          
+## 3 50011J  8/11/2023 09:33       564 BRENNAN_RACHEL  18.2 -64.7 BLEACH          
+## 4 50011X  8/11/2023 09:33       546 UZZELL_LILA     18.2 -64.7 BLEACH          
+## 5 50021A  8/11/2023 09:59       175 RICHTER_L       18.2 -64.7 SCTLD, LIONFISH,
+## 6 50021B  8/11/2023 09:59        16 CONTILLO_J      18.2 -64.7 SCTLD, LIONFISH,</code></pre>
+</div>
+<div id="read_xlsx" class="section level4">
+<h4>read_xlsx</h4>
+<p>The <code>read_xlsx()</code> function from the `readxl` package
+allows you to read data from excel files and specify the sheet if
+necessary.</p>
+<pre class="r"><code>library(readxl)
+
+xlsx_data &lt;- read_xlsx(&quot;data/sttstj_all_sites.xlsx&quot;, sheet = &quot;locations&quot;)
+
+## 1) What would happen if you removed the &#39;sheet =&#39; syntax?
+
+head(xlsx_data)</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   yr_site    lat   lon hab  
+##   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+## 1 2001_241  18.3 -64.8 PVMT 
+## 2 2001_243  18.3 -64.7 AGRF 
+## 3 2001_244  18.3 -64.7 AGRF 
+## 4 2001_247  18.3 -64.7 AGRF 
+## 5 2001_248  18.3 -64.8 PVMT 
+## 6 2001_249  18.3 -64.7 SCR</code></pre>
 </div>
 </div>
 <div id="exporting-data-to-external-files" class="section level3">
