@@ -1,5 +1,5 @@
 ---
-title: "Week 2 Exercises"
+title: "Data Types and Structures"
 author: "J.Blondeau"
 date: "2024-08-29"
 output: html_document
