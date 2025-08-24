@@ -374,7 +374,7 @@ are. The most common types you’ll encounter are:</p>
 <h4><strong>Numeric</strong></h4>
 <p>Numeric data represents numbers, including integers (whole numbers)
 and floating-point numbers (decimals).</p>
-<pre class="r"><code># Numeric data examples relevant to marine science
+<pre class="r"><code># Numeric data examples
 depth_m &lt;- 15.5
 fish_count &lt;- 42</code></pre>
 </div>
@@ -414,9 +414,9 @@ it.</p>
 </div>
 </div>
 <div id="inspecting-your-data" class="section level3">
-<h3>Inspecting Your Data 🔧</h3>
-<p>You are a data detective. These functions are your magnifying glass.
-Use them constantly!</p>
+<h3>Inspecting Your Data</h3>
+<p>These functions will give you insight to the data types and
+structures. Use them constantly!</p>
 <div id="class-function" class="section level4">
 <h4><strong><code>class()</code> Function</strong></h4>
 <p>The <code>class()</code> function tells you the specific data type or
@@ -591,7 +591,7 @@ library(writexl)
 </div>
 </div>
 <div id="case-study-the-silent-error" class="section level3">
-<h3>Case Study: The Silent Error 🕵️‍♀️</h3>
+<h3>Case Study: The Silent Error</h3>
 <p>Let’s tie everything together. You’ve been given data on coral
 bleaching severity, measured on a 1-5 scale. You want to find the
 average severity.</p>
@@ -602,16 +602,13 @@ bleaching_scores &lt;- c(3, 4, 2, 5, &quot;Not Assessed&quot;, 3)
 # mean(bleaching_scores) 
 # This gives an error! Why?
 
-# 2. The Investigation: Let&#39;s use our detective tools.
+# 2. The Investigation:
 class(bleaching_scores)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<pre class="r"><code># Aha! It&#39;s a &quot;character&quot; vector. The presence of the text &quot;Not Assessed&quot;
+<pre class="r"><code># It&#39;s a &quot;character&quot; vector. The presence of the text &quot;Not Assessed&quot;
 # caused R to coerce the entire vector to character type.
 
-# 3. The Solution: We need to clean the data *before* we analyze it.
-# This is a perfect preview of our next lesson on data manipulation!</code></pre>
-<p>Great work today! You now have the foundational knowledge to
-understand how R “thinks” about data.</p>
+# 3. The Solution: We need to clean the data *before* we analyze it.</code></pre>
 </div>
 </div>
 
