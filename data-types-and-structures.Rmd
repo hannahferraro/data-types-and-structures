@@ -1,5 +1,5 @@
 ---
-title: "Data Types and Structures"
+title: "Week 1: Data Types and Structures"
 author: "J.Blondeau"
 date: "`r Sys.Date()`"
 output: html_document
@@ -11,179 +11,215 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Data Types and Structures in R {.tabset}
 
-In this lesson, we will explore different data types and structures in R and understand how they are used to organize and store data.
+In this first lesson, we will explore the fundamental building blocks of data in R. A firm grasp of these concepts is the most important skill for troubleshooting code. Nearly every error you will encounter is a result of data not being in the expected format or structure. This lesson provides the foundation for effective data manipulation and analysis.
 
 ### Data Types
 
-#### Numeric
+Everything you create in R has a "type." Think of it like classifying organisms; you can't work with them properly if you don't know what they are. The most common types you'll encounter are:
 
-Numeric data types represent numbers, both integers and decimals.
-
-```{r}
-# Numeric data example
-x <- 10 #integer
-y <- 3.14 #floating
-```
-
-#### Character
-
-Character data types represent text or strings.
+#### **Numeric**
+Numeric data represents numbers, including integers (whole numbers) and floating-point numbers (decimals).
 
 ```{r}
-# Character data example
-species <- "Acropora palmata"
-greeting <- "Hello, R!"
-
+# Numeric data examples
+depth_m <- 15.5
+fish_count <- 42
 ```
 
-#### Logical (Boolean)
-
-Logical data types represent binary values: TRUE or FALSE.
+#### **Character**
+Character data, also known as "strings," represents text. You must use quotation marks (`"` or `'`) to create them.
 
 ```{r}
-# Logical data example
-is_student <- TRUE
-is_bleached <- FALSE
-
+# Character data examples
+species_name <- "Acropora palmata"
+site_id <- "STT-04"
 ```
-### Inspecting data
 
-#### class() Function
+#### **Logical (Boolean)**
+Logical data represents binary `TRUE` or `FALSE` values. These are essential for filtering data. **Note:** They must be in all caps!
 
-The `class()` function helps you determine the class (data type) of an R object.
+```{r}
+# Logical data examples
+is_bleached <- TRUE
+transect_completed <- FALSE
+```
+
+#### **Why This Matters: A Practical Example**
+What happens if you accidentally record data as the wrong type? Let's say we included units in our depth measurements.
+
+```{r}
+# A vector with a mix of numbers and one character string
+depths <- c(10.2, 11.5, "9.8m", 10.5)
+
+# Let's try to calculate the average depth...
+# mean(depths) 
+# This will throw an error! R can't do math on text.
+# Uncomment the line above to see the error for yourself.
+```
+This is one of the most common errors in R! The fix is to make sure your data is the correct **type** before you try to analyze it.
+
+---
+
+### Inspecting Your Data
+
+These functions will give you insight to the data types and structures. Use them constantly!
+
+#### **`class()` Function**
+The `class()` function tells you the specific data type or structure of an R object.
 
 ```{r}
 # Using class() to determine the class of an object
-x <- 5
-y <- "Hello, R!"
-class(x)   # Output: "numeric"
-class(y)   # Output: "character"
+class(depth_m)
+class(species_name)
+class(is_bleached)
 ```
 
-#### str() Function
-
-The str() function provides a concise summary of an R object's structure.
+#### **`str()` Function**
+The `str()` (structure) function provides a concise summary of any R object's structure. It's incredibly useful for lists and data frames.
 
 ```{r}
-# Using str() to understand the structure of an object
-data <- list(name = "Alice", age = 30, is_student = TRUE)
-str(data)
+# Let's create a list to hold info about a survey
+# (We'll learn more about lists below!)
+t1_analysis <- list(
+  site_name = "Brewer's Bay West",
+  survey_date = "2025-08-24",
+  depths_m = c(8.1, 8.3, 8.2)
+)
+
+# str() gives us a perfect summary of what's inside
+str(t1_analysis)
 ```
 
-#### glimpse() Function
-
-The glimpse() function from the dplyr package offers a compact overview of data frames.
+#### **`glimpse()` Function**
+The `glimpse()` function from the `dplyr` package (part of the `tidyverse`) is the best way to get a quick, clean overview of a data frame.
 
 ```{r}
 # Using glimpse() to get an overview of a data frame
 library(dplyr)
 
-df <- data.frame(name = c("Alice", "Bob", "Jeremiah"), age = c(25, 30, 46))
-glimpse(df)
+# A more realistic data frame
+fish_survey <- data.frame(
+  transect_id = c("T1", "T1", "T2"),
+  species = c("Stegastes partitus", "Acanthurus bahianus", "Stegastes partitus"),
+  count = c(12, 5, 18)
+)
 
+glimpse(fish_survey)
 ```
+
+---
 
 ### Data Structures
 
-#### Vectors
+If data types are the atoms, data structures are the molecules. They are containers for holding your data.
 
-Vectors are sequences of elements of the same data type.
+#### **Vectors**
+Vectors are the most fundamental structure. They are a sequence of elements of the **same data type**.
 
 ```{r}
-# Vector example
-numbers <- c(1, 2, 3, 4, 5)
-fruits <- c("apple", "banana", "orange")
+# Vector examples
+depths <- c(5.2, 5.5, 6.1, 5.8)
+sites <- c("Coki Point", "Brewer's Bay", "Magens Bay")
 
-## 1) What are the data types in each of te above variables?
-
-mixed <- c(1, "two")
-## 2) What do you think the data type of mixed will be?
-
+## 1) What are the data types in each of the above vectors?
+class(depths)
+class(sites)
 ```
 
-#### Data Frames
-
-Data frames are tabular structures with rows (or records) and columns.  Individual columns must be the same data type, but you can have different columns with different data types.
+**The Vector's One-Rule Policy:** A vector can only hold one data type! If you try to mix them, R will quietly **coerce** them to match the most flexible type (usually character). This silent conversion can cause major headaches.
 
 ```{r}
-# Data frame example
-df <- data.frame(name = c("Alice", "Bob", "Charlie"),
-                 age = c(25, 30, 22),
-                 is_student = c(TRUE, FALSE, TRUE))
+mixed <- c(10, "Siderastrea", TRUE)
 
+## 2) What do you think the data type of `mixed` will be?
+class(mixed)
+# It's "character"! R downgraded the number 10 to "10" and TRUE to "TRUE".
 ```
 
-#### Lists
-
-Lists are collections of elements, which can be of different data types.
+#### **Data Frames**
+A data frame is the most important data structure for data analysis. It's a table, like you'd see in Excel.
+* Each **column** is a vector, where all elements must be the same data type.
+* Different columns can have different data types.
 
 ```{r}
-# List example
-my_list <- list(numbers, fruits, df)
-
+# We already created this data frame earlier
+glimpse(fish_survey)
 ```
 
-### Reading Data from External Files
-
-#### read_csv() Function
-
-The `read_csv()` function from the `readr` package allows you to read data from CSV files.
+#### **Lists**
+Lists are the most flexible data structure. You can think of them as a **digital lab binder** or a project folder. A list can contain *anything*—vectors, data frames, even other lists! They are great for keeping related but dissimilar items together.
 
 ```{r}
+# We already created this list earlier, which holds info for our T1 analysis
+str(t1_analysis)
+```
+
+---
+
+### Reading & Writing Data
+
+Usually, our data lives in external files like `.csv` or `.xlsx`. A huge part of your work in R will be reading data in and writing results out. We'll use functions from the `tidyverse` for this.
+
+**A Quick Note on File Paths:** The #1 reason reading data fails is an incorrect file path. The best practice is to use **RStudio Projects** (`.Rproj` files), which automatically sets the working directory to your project folder. Then you can use simple paths like `"data/my_file.csv"`.
+
+#### **`read_csv()` Function**
+The `read_csv()` function from the `readr` package is the best way to read data from CSV (Comma Separated Values) files. It's fast, reliable, and won't do weird things to your data like the old base R functions sometimes do.
+
+```{r message=FALSE, warning=FALSE}
 # Reading CSV file using read_csv()
 library(readr)
 
-csv_data <- read_csv("data/sttstj_2023_boat_logs.csv")
+# Assuming you have a folder named "data" in your R Project
+# boat_logs <- read_csv("data/sttstj_2023_boat_logs.csv")
 
-head(csv_data)
-
+# head(boat_logs)
 ```
 
-#### read_xlsx
-
-The `read_xlsx()` function from the \`readxl\` package allows you to read data from excel files and specify the sheet if necessary.
+#### **`read_xlsx()` Function**
+The `read_xlsx()` function from the `readxl` package allows you to read data from Excel files. You can (and should!) specify the sheet name.
 
 ```{r}
 library(readxl)
 
-xlsx_data <- read_xlsx("data/sttstj_all_sites.xlsx", sheet = "locations")
+#xlsx_data <- read_xlsx("data/sttstj_all_sites.xlsx", sheet = "locations")
 
-## 1) What would happen if you removed the 'sheet =' syntax?
+## 1) What would happen if you removed the 'sheet =' argument?
+## Answer: It would read the first sheet by default. It's always safer to be specific!
 
-head(xlsx_data)
-
+#head(xlsx_data)
 ```
 
-### Exporting Data to External Files
-
-#### write_csv() Function
-
-The `write_csv()` function from the \`readr\`\` package allows you to export data to CSV files.
+#### **`write_csv()` & `write_xlsx()`**
+These functions do the opposite: they save your R objects (like data frames) to files that can be shared or opened in other programs.
 
 ```{r}
-# Creating a data frame
-df <- data.frame(name = c("Alice", "Bob", "Jeremiah"),
-                 age = c(25, 30,46))
+# Exporting our fish_survey data frame to a CSV
+# write_csv(fish_survey, "data/fish_survey_output.csv")
 
-# Exporting data to CSV using write_csv()
-library(readr)
-write_csv(df, "data/csv_output.csv")
-```
-
-#### write_xlsx() Function
-
-The write_xlsx() function from the writr package lets you export data to Excel (.xlsx) files.
-
-```{r}
+# The writexl package can write a list of data frames to different sheets
 library(writexl)
-# Creating multiple data frames
-df <- data.frame(name = c("Alice", "Bob", "Jeremiah"),
-                 age = c(25, 30,46))
+# write_xlsx(list("Fish Survey" = fish_survey), "data/survey_output.xlsx")
+```
 
-df_another <- data.frame(name = c("Charlie", "David", "Shirley"),
-                          age = c(22, 28, 35))
+---
 
-# Exporting data to Excel using write_xlsx()
-write_xlsx(list("Sheet1" = df, "Sheet2" = df_another), "data/excel_output.xlsx")
+### Case Study: The Silent Error
+
+Let's tie everything together. You've been given data on coral bleaching severity, measured on a 1-5 scale. You want to find the average severity.
+
+```{r}
+# Your data vector
+bleaching_scores <- c(3, 4, 2, 5, "Not Assessed", 3)
+
+# 1. The Goal: Calculate the mean bleaching score
+# mean(bleaching_scores) 
+# This gives an error! Why?
+
+# 2. The Investigation:
+class(bleaching_scores)
+# It's a "character" vector. The presence of the text "Not Assessed"
+# caused R to coerce the entire vector to character type.
+
+# 3. The Solution: We need to clean the data *before* we analyze it.
 
 ```

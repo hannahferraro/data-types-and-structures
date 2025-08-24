@@ -13,7 +13,7 @@
 
 <meta name="date" content="2025-08-24" />
 
-<title>Data Types and Structures</title>
+<title>Week 1: Data Types and Structures</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,7 +350,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Data Types and Structures</h1>
+<h1 class="title toc-ignore">Week 1: Data Types and Structures</h1>
 <h4 class="author">J.Blondeau</h4>
 <h4 class="date">2025-08-24</h4>
 
@@ -359,62 +359,101 @@ display: none;
 
 <div id="data-types-and-structures-in-r" class="section level2 tabset">
 <h2 class="tabset">Data Types and Structures in R</h2>
-<p>In this lesson, we will explore different data types and structures
-in R and understand how they are used to organize and store data.</p>
+<p>In this first lesson, we will explore the fundamental building blocks
+of data in R. A firm grasp of these concepts is the most important skill
+for troubleshooting code. Nearly every error you will encounter is a
+result of data not being in the expected format or structure. This
+lesson provides the foundation for effective data manipulation and
+analysis.</p>
 <div id="data-types" class="section level3">
 <h3>Data Types</h3>
+<p>Everything you create in R has a “type.” Think of it like classifying
+organisms; you can’t work with them properly if you don’t know what they
+are. The most common types you’ll encounter are:</p>
 <div id="numeric" class="section level4">
-<h4>Numeric</h4>
-<p>Numeric data types represent numbers, both integers and decimals.</p>
-<pre class="r"><code># Numeric data example
-x &lt;- 10 #integer
-y &lt;- 3.14 #floating</code></pre>
+<h4><strong>Numeric</strong></h4>
+<p>Numeric data represents numbers, including integers (whole numbers)
+and floating-point numbers (decimals).</p>
+<pre class="r"><code># Numeric data examples relevant to marine science
+depth_m &lt;- 15.5
+fish_count &lt;- 42</code></pre>
 </div>
 <div id="character" class="section level4">
-<h4>Character</h4>
-<p>Character data types represent text or strings.</p>
-<pre class="r"><code># Character data example
-species &lt;- &quot;Acropora palmata&quot;
-greeting &lt;- &quot;Hello, R!&quot;</code></pre>
+<h4><strong>Character</strong></h4>
+<p>Character data, also known as “strings,” represents text. You must
+use quotation marks (<code>&quot;</code> or <code>&#39;</code>) to create
+them.</p>
+<pre class="r"><code># Character data examples
+species_name &lt;- &quot;Acropora palmata&quot;
+site_id &lt;- &quot;STT-04&quot;</code></pre>
 </div>
 <div id="logical-boolean" class="section level4">
-<h4>Logical (Boolean)</h4>
-<p>Logical data types represent binary values: TRUE or FALSE.</p>
-<pre class="r"><code># Logical data example
-is_student &lt;- TRUE
-is_bleached &lt;- FALSE</code></pre>
+<h4><strong>Logical (Boolean)</strong></h4>
+<p>Logical data represents binary <code>TRUE</code> or
+<code>FALSE</code> values. These are essential for filtering data.
+<strong>Note:</strong> They must be in all caps!</p>
+<pre class="r"><code># Logical data examples
+is_bleached &lt;- TRUE
+transect_completed &lt;- FALSE</code></pre>
+</div>
+<div id="why-this-matters-a-practical-example" class="section level4">
+<h4><strong>Why This Matters: A Practical Example</strong></h4>
+<p>What happens if you accidentally record data as the wrong type? Let’s
+say we included units in our depth measurements.</p>
+<pre class="r"><code># A vector with a mix of numbers and one character string
+depths &lt;- c(10.2, 11.5, &quot;9.8m&quot;, 10.5)
+
+# Let&#39;s try to calculate the average depth...
+# mean(depths) 
+# This will throw an error! R can&#39;t do math on text.
+# Uncomment the line above to see the error for yourself.</code></pre>
+<p>This is one of the most common errors in R! The fix is to make sure
+your data is the correct <strong>type</strong> before you try to analyze
+it.</p>
+<hr />
 </div>
 </div>
-<div id="inspecting-data" class="section level3">
-<h3>Inspecting data</h3>
+<div id="inspecting-your-data" class="section level3">
+<h3>Inspecting Your Data 🔧</h3>
+<p>You are a data detective. These functions are your magnifying glass.
+Use them constantly!</p>
 <div id="class-function" class="section level4">
-<h4>class() Function</h4>
-<p>The <code>class()</code> function helps you determine the class (data
-type) of an R object.</p>
+<h4><strong><code>class()</code> Function</strong></h4>
+<p>The <code>class()</code> function tells you the specific data type or
+structure of an R object.</p>
 <pre class="r"><code># Using class() to determine the class of an object
-x &lt;- 5
-y &lt;- &quot;Hello, R!&quot;
-class(x)   # Output: &quot;numeric&quot;</code></pre>
+class(depth_m)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<pre class="r"><code>class(y)   # Output: &quot;character&quot;</code></pre>
+<pre class="r"><code>class(species_name)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>class(is_bleached)</code></pre>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
 </div>
 <div id="str-function" class="section level4">
-<h4>str() Function</h4>
-<p>The str() function provides a concise summary of an R object’s
-structure.</p>
-<pre class="r"><code># Using str() to understand the structure of an object
-data &lt;- list(name = &quot;Alice&quot;, age = 30, is_student = TRUE)
-str(data)</code></pre>
+<h4><strong><code>str()</code> Function</strong></h4>
+<p>The <code>str()</code> (structure) function provides a concise
+summary of any R object’s structure. It’s incredibly useful for lists
+and data frames.</p>
+<pre class="r"><code># Let&#39;s create a list to hold info about a survey
+# (We&#39;ll learn more about lists below!)
+t1_analysis &lt;- list(
+  site_name = &quot;Brewer&#39;s Bay West&quot;,
+  survey_date = &quot;2025-08-24&quot;,
+  depths_m = c(8.1, 8.3, 8.2)
+)
+
+# str() gives us a perfect summary of what&#39;s inside
+str(t1_analysis)</code></pre>
 <pre><code>## List of 3
-##  $ name      : chr &quot;Alice&quot;
-##  $ age       : num 30
-##  $ is_student: logi TRUE</code></pre>
+##  $ site_name  : chr &quot;Brewer&#39;s Bay West&quot;
+##  $ survey_date: chr &quot;2025-08-24&quot;
+##  $ depths_m   : num [1:3] 8.1 8.3 8.2</code></pre>
 </div>
 <div id="glimpse-function" class="section level4">
-<h4>glimpse() Function</h4>
-<p>The glimpse() function from the dplyr package offers a compact
-overview of data frames.</p>
+<h4><strong><code>glimpse()</code> Function</strong></h4>
+<p>The <code>glimpse()</code> function from the <code>dplyr</code>
+package (part of the <code>tidyverse</code>) is the best way to get a
+quick, clean overview of a data frame.</p>
 <pre class="r"><code># Using glimpse() to get an overview of a data frame
 library(dplyr)</code></pre>
 <pre><code>## 
@@ -425,128 +464,154 @@ library(dplyr)</code></pre>
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>df &lt;- data.frame(name = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Jeremiah&quot;), age = c(25, 30, 46))
-glimpse(df)</code></pre>
+<pre class="r"><code># A more realistic data frame
+fish_survey &lt;- data.frame(
+  transect_id = c(&quot;T1&quot;, &quot;T1&quot;, &quot;T2&quot;),
+  species = c(&quot;Stegastes partitus&quot;, &quot;Acanthurus bahianus&quot;, &quot;Stegastes partitus&quot;),
+  count = c(12, 5, 18)
+)
+
+glimpse(fish_survey)</code></pre>
 <pre><code>## Rows: 3
-## Columns: 2
-## $ name &lt;chr&gt; &quot;Alice&quot;, &quot;Bob&quot;, &quot;Jeremiah&quot;
-## $ age  &lt;dbl&gt; 25, 30, 46</code></pre>
+## Columns: 3
+## $ transect_id &lt;chr&gt; &quot;T1&quot;, &quot;T1&quot;, &quot;T2&quot;
+## $ species     &lt;chr&gt; &quot;Stegastes partitus&quot;, &quot;Acanthurus bahianus&quot;, &quot;Stegastes pa…
+## $ count       &lt;dbl&gt; 12, 5, 18</code></pre>
+<hr />
 </div>
 </div>
 <div id="data-structures" class="section level3">
 <h3>Data Structures</h3>
+<p>If data types are the atoms, data structures are the molecules. They
+are containers for holding your data.</p>
 <div id="vectors" class="section level4">
-<h4>Vectors</h4>
-<p>Vectors are sequences of elements of the same data type.</p>
-<pre class="r"><code># Vector example
-numbers &lt;- c(1, 2, 3, 4, 5)
-fruits &lt;- c(&quot;apple&quot;, &quot;banana&quot;, &quot;orange&quot;)
+<h4><strong>Vectors</strong></h4>
+<p>Vectors are the most fundamental structure. They are a sequence of
+elements of the <strong>same data type</strong>.</p>
+<pre class="r"><code># Vector examples
+depths &lt;- c(5.2, 5.5, 6.1, 5.8)
+sites &lt;- c(&quot;Coki Point&quot;, &quot;Brewer&#39;s Bay&quot;, &quot;Magens Bay&quot;)
 
-## 1) What are the data types in each of te above variables?
+## 1) What are the data types in each of the above vectors?
+class(depths)</code></pre>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>class(sites)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p><strong>The Vector’s One-Rule Policy:</strong> A vector can only hold
+one data type! If you try to mix them, R will quietly
+<strong>coerce</strong> them to match the most flexible type (usually
+character). This silent conversion can cause major headaches.</p>
+<pre class="r"><code>mixed &lt;- c(10, &quot;Siderastrea&quot;, TRUE)
 
-mixed &lt;- c(1, &quot;two&quot;)
-## 2) What do you think the data type of mixed will be?</code></pre>
+## 2) What do you think the data type of `mixed` will be?
+class(mixed)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code># It&#39;s &quot;character&quot;! R downgraded the number 10 to &quot;10&quot; and TRUE to &quot;TRUE&quot;.</code></pre>
 </div>
 <div id="data-frames" class="section level4">
-<h4>Data Frames</h4>
-<p>Data frames are tabular structures with rows (or records) and
-columns. Individual columns must be the same data type, but you can have
-different columns with different data types.</p>
-<pre class="r"><code># Data frame example
-df &lt;- data.frame(name = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;),
-                 age = c(25, 30, 22),
-                 is_student = c(TRUE, FALSE, TRUE))</code></pre>
+<h4><strong>Data Frames</strong></h4>
+<p>A data frame is the most important data structure for data analysis.
+It’s a table, like you’d see in Excel. * Each <strong>column</strong> is
+a vector, where all elements must be the same data type. * Different
+columns can have different data types.</p>
+<pre class="r"><code># We already created this data frame earlier
+glimpse(fish_survey)</code></pre>
+<pre><code>## Rows: 3
+## Columns: 3
+## $ transect_id &lt;chr&gt; &quot;T1&quot;, &quot;T1&quot;, &quot;T2&quot;
+## $ species     &lt;chr&gt; &quot;Stegastes partitus&quot;, &quot;Acanthurus bahianus&quot;, &quot;Stegastes pa…
+## $ count       &lt;dbl&gt; 12, 5, 18</code></pre>
 </div>
 <div id="lists" class="section level4">
-<h4>Lists</h4>
-<p>Lists are collections of elements, which can be of different data
-types.</p>
-<pre class="r"><code># List example
-my_list &lt;- list(numbers, fruits, df)</code></pre>
+<h4><strong>Lists</strong></h4>
+<p>Lists are the most flexible data structure. You can think of them as
+a <strong>digital lab binder</strong> or a project folder. A list can
+contain <em>anything</em>—vectors, data frames, even other lists! They
+are great for keeping related but dissimilar items together.</p>
+<pre class="r"><code># We already created this list earlier, which holds info for our T1 analysis
+str(t1_analysis)</code></pre>
+<pre><code>## List of 3
+##  $ site_name  : chr &quot;Brewer&#39;s Bay West&quot;
+##  $ survey_date: chr &quot;2025-08-24&quot;
+##  $ depths_m   : num [1:3] 8.1 8.3 8.2</code></pre>
+<hr />
 </div>
 </div>
-<div id="reading-data-from-external-files" class="section level3">
-<h3>Reading Data from External Files</h3>
+<div id="reading-writing-data" class="section level3">
+<h3>Reading &amp; Writing Data</h3>
+<p>Usually, our data lives in external files like <code>.csv</code> or
+<code>.xlsx</code>. A huge part of your work in R will be reading data
+in and writing results out. We’ll use functions from the
+<code>tidyverse</code> for this.</p>
+<p><strong>A Quick Note on File Paths:</strong> The #1 reason reading
+data fails is an incorrect file path. The best practice is to use
+<strong>RStudio Projects</strong> (<code>.Rproj</code> files), which
+automatically sets the working directory to your project folder. Then
+you can use simple paths like <code>&quot;data/my_file.csv&quot;</code>.</p>
 <div id="read_csv-function" class="section level4">
-<h4>read_csv() Function</h4>
+<h4><strong><code>read_csv()</code> Function</strong></h4>
 <p>The <code>read_csv()</code> function from the <code>readr</code>
-package allows you to read data from CSV files.</p>
+package is the best way to read data from CSV (Comma Separated Values)
+files. It’s fast, reliable, and won’t do weird things to your data like
+the old base R functions sometimes do.</p>
 <pre class="r"><code># Reading CSV file using read_csv()
 library(readr)
 
-csv_data &lt;- read_csv(&quot;data/sttstj_2023_boat_logs.csv&quot;)</code></pre>
-<pre><code>## Rows: 1138 Columns: 8
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr  (4): fieldid, date, DIVER_NAME, LOG_COMMENTS
-## dbl  (3): DIVER_NR, lat, lon
-## time (1): time
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>head(csv_data)</code></pre>
-<pre><code>## # A tibble: 6 × 8
-##   fieldid date      time   DIVER_NR DIVER_NAME       lat   lon LOG_COMMENTS    
-##   &lt;chr&gt;   &lt;chr&gt;     &lt;time&gt;    &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           
-## 1 50011A  8/11/2023 09:33       525 STEVENS_MOLLY   18.2 -64.7 BLEACH          
-## 2 50011B  8/11/2023 09:33       530 MUNOZ_ROLDAN    18.2 -64.7 BLEACH          
-## 3 50011J  8/11/2023 09:33       564 BRENNAN_RACHEL  18.2 -64.7 BLEACH          
-## 4 50011X  8/11/2023 09:33       546 UZZELL_LILA     18.2 -64.7 BLEACH          
-## 5 50021A  8/11/2023 09:59       175 RICHTER_L       18.2 -64.7 SCTLD, LIONFISH,
-## 6 50021B  8/11/2023 09:59        16 CONTILLO_J      18.2 -64.7 SCTLD, LIONFISH,</code></pre>
+# Assuming you have a folder named &quot;data&quot; in your R Project
+# boat_logs &lt;- read_csv(&quot;data/sttstj_2023_boat_logs.csv&quot;)
+
+# head(boat_logs)</code></pre>
 </div>
-<div id="read_xlsx" class="section level4">
-<h4>read_xlsx</h4>
-<p>The <code>read_xlsx()</code> function from the `readxl` package
-allows you to read data from excel files and specify the sheet if
-necessary.</p>
+<div id="read_xlsx-function" class="section level4">
+<h4><strong><code>read_xlsx()</code> Function</strong></h4>
+<p>The <code>read_xlsx()</code> function from the <code>readxl</code>
+package allows you to read data from Excel files. You can (and should!)
+specify the sheet name.</p>
 <pre class="r"><code>library(readxl)
 
-xlsx_data &lt;- read_xlsx(&quot;data/sttstj_all_sites.xlsx&quot;, sheet = &quot;locations&quot;)
+#xlsx_data &lt;- read_xlsx(&quot;data/sttstj_all_sites.xlsx&quot;, sheet = &quot;locations&quot;)
 
-## 1) What would happen if you removed the &#39;sheet =&#39; syntax?
+## 1) What would happen if you removed the &#39;sheet =&#39; argument?
+## Answer: It would read the first sheet by default. It&#39;s always safer to be specific!
 
-head(xlsx_data)</code></pre>
-<pre><code>## # A tibble: 6 × 4
-##   yr_site    lat   lon hab  
-##   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 2001_241  18.3 -64.8 PVMT 
-## 2 2001_243  18.3 -64.7 AGRF 
-## 3 2001_244  18.3 -64.7 AGRF 
-## 4 2001_247  18.3 -64.7 AGRF 
-## 5 2001_248  18.3 -64.8 PVMT 
-## 6 2001_249  18.3 -64.7 SCR</code></pre>
+#head(xlsx_data)</code></pre>
+</div>
+<div id="write_csv-write_xlsx" class="section level4">
+<h4><strong><code>write_csv()</code> &amp;
+<code>write_xlsx()</code></strong></h4>
+<p>These functions do the opposite: they save your R objects (like data
+frames) to files that can be shared or opened in other programs.</p>
+<pre class="r"><code># Exporting our fish_survey data frame to a CSV
+# write_csv(fish_survey, &quot;data/fish_survey_output.csv&quot;)
+
+# The writexl package can write a list of data frames to different sheets
+library(writexl)
+# write_xlsx(list(&quot;Fish Survey&quot; = fish_survey), &quot;data/survey_output.xlsx&quot;)</code></pre>
+<hr />
 </div>
 </div>
-<div id="exporting-data-to-external-files" class="section level3">
-<h3>Exporting Data to External Files</h3>
-<div id="write_csv-function" class="section level4">
-<h4>write_csv() Function</h4>
-<p>The <code>write_csv()</code> function from the `readr`` package
-allows you to export data to CSV files.</p>
-<pre class="r"><code># Creating a data frame
-df &lt;- data.frame(name = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Jeremiah&quot;),
-                 age = c(25, 30,46))
+<div id="case-study-the-silent-error" class="section level3">
+<h3>Case Study: The Silent Error 🕵️‍♀️</h3>
+<p>Let’s tie everything together. You’ve been given data on coral
+bleaching severity, measured on a 1-5 scale. You want to find the
+average severity.</p>
+<pre class="r"><code># Your data vector
+bleaching_scores &lt;- c(3, 4, 2, 5, &quot;Not Assessed&quot;, 3)
 
-# Exporting data to CSV using write_csv()
-library(readr)
-write_csv(df, &quot;data/csv_output.csv&quot;)</code></pre>
-</div>
-<div id="write_xlsx-function" class="section level4">
-<h4>write_xlsx() Function</h4>
-<p>The write_xlsx() function from the writr package lets you export data
-to Excel (.xlsx) files.</p>
-<pre class="r"><code>library(writexl)
-# Creating multiple data frames
-df &lt;- data.frame(name = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Jeremiah&quot;),
-                 age = c(25, 30,46))
+# 1. The Goal: Calculate the mean bleaching score
+# mean(bleaching_scores) 
+# This gives an error! Why?
 
-df_another &lt;- data.frame(name = c(&quot;Charlie&quot;, &quot;David&quot;, &quot;Shirley&quot;),
-                          age = c(22, 28, 35))
+# 2. The Investigation: Let&#39;s use our detective tools.
+class(bleaching_scores)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code># Aha! It&#39;s a &quot;character&quot; vector. The presence of the text &quot;Not Assessed&quot;
+# caused R to coerce the entire vector to character type.
 
-# Exporting data to Excel using write_xlsx()
-write_xlsx(list(&quot;Sheet1&quot; = df, &quot;Sheet2&quot; = df_another), &quot;data/excel_output.xlsx&quot;)</code></pre>
-</div>
+# 3. The Solution: We need to clean the data *before* we analyze it.
+# This is a perfect preview of our next lesson on data manipulation!</code></pre>
+<p>Great work today! You now have the foundational knowledge to
+understand how R “thinks” about data.</p>
 </div>
 </div>
 
