@@ -18,6 +18,7 @@ In this first lesson, we will explore the fundamental building blocks of data in
 Everything you create in R has a "type." Think of it like classifying organisms; you can't work with them properly if you don't know what they are. The most common types you'll encounter are:
 
 #### **Numeric**
+
 Numeric data represents numbers, including integers (whole numbers) and floating-point numbers (decimals).
 
 ```{r}
@@ -27,6 +28,7 @@ fish_count <- 42
 ```
 
 #### **Character**
+
 Character data, also known as "strings," represents text. You must use quotation marks (`"` or `'`) to create them.
 
 ```{r}
@@ -36,6 +38,7 @@ site_id <- "STT-04"
 ```
 
 #### **Logical (Boolean)**
+
 Logical data represents binary `TRUE` or `FALSE` values. These are essential for filtering data. **Note:** They must be in all caps!
 
 ```{r}
@@ -45,10 +48,12 @@ transect_completed <- FALSE
 ```
 
 #### **Why This Matters: A Practical Example**
+
 What happens if you accidentally record data as the wrong type? Let's say we included units in our depth measurements.
 
 ```{r}
 # A vector with a mix of numbers and one character string
+# They will all be strings if you make one a string
 depths <- c(10.2, 11.5, "9.8m", 10.5)
 
 # Let's try to calculate the average depth...
@@ -56,15 +61,17 @@ depths <- c(10.2, 11.5, "9.8m", 10.5)
 # This will throw an error! R can't do math on text.
 # Uncomment the line above to see the error for yourself.
 ```
+
 This is one of the most common errors in R! The fix is to make sure your data is the correct **type** before you try to analyze it.
 
----
+------------------------------------------------------------------------
 
 ### Inspecting Your Data
 
 These functions will give you insight to the data types and structures. Use them constantly!
 
 #### **`class()` Function**
+
 The `class()` function tells you the specific data type or structure of an R object.
 
 ```{r}
@@ -75,6 +82,7 @@ class(is_bleached)
 ```
 
 #### **`str()` Function**
+
 The `str()` (structure) function provides a concise summary of any R object's structure. It's incredibly useful for lists and data frames.
 
 ```{r}
@@ -91,6 +99,7 @@ str(t1_analysis)
 ```
 
 #### **`glimpse()` Function**
+
 The `glimpse()` function from the `dplyr` package (part of the `tidyverse`) is the best way to get a quick, clean overview of a data frame.
 
 ```{r}
@@ -107,13 +116,14 @@ fish_survey <- data.frame(
 glimpse(fish_survey)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Data Structures
 
 If data types are the atoms, data structures are the molecules. They are containers for holding your data.
 
 #### **Vectors**
+
 Vectors are the most fundamental structure. They are a sequence of elements of the **same data type**.
 
 ```{r}
@@ -137,9 +147,8 @@ class(mixed)
 ```
 
 #### **Data Frames**
-A data frame is the most important data structure for data analysis. It's a table, like you'd see in Excel.
-* Each **column** is a vector, where all elements must be the same data type.
-* Different columns can have different data types.
+
+A data frame is the most important data structure for data analysis. It's a table, like you'd see in Excel. \* Each **column** is a vector, where all elements must be the same data type. \* Different columns can have different data types.
 
 ```{r}
 # We already created this data frame earlier
@@ -147,6 +156,7 @@ glimpse(fish_survey)
 ```
 
 #### **Lists**
+
 Lists are the most flexible data structure. You can think of them as a **digital lab binder** or a project folder. A list can contain *anything*—vectors, data frames, even other lists! They are great for keeping related but dissimilar items together.
 
 ```{r}
@@ -154,7 +164,7 @@ Lists are the most flexible data structure. You can think of them as a **digital
 str(t1_analysis)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Reading & Writing Data
 
@@ -163,6 +173,7 @@ Usually, our data lives in external files like `.csv` or `.xlsx`. A huge part of
 **A Quick Note on File Paths:** The #1 reason reading data fails is an incorrect file path. The best practice is to use **RStudio Projects** (`.Rproj` files), which automatically sets the working directory to your project folder. Then you can use simple paths like `"data/my_file.csv"`.
 
 #### **`read_csv()` Function**
+
 The `read_csv()` function from the `readr` package is the best way to read data from CSV (Comma Separated Values) files. It's fast, reliable, and won't do weird things to your data like the old base R functions sometimes do.
 
 ```{r message=FALSE, warning=FALSE}
@@ -176,6 +187,7 @@ library(readr)
 ```
 
 #### **`read_xlsx()` Function**
+
 The `read_xlsx()` function from the `readxl` package allows you to read data from Excel files. You can (and should!) specify the sheet name.
 
 ```{r}
@@ -190,6 +202,7 @@ library(readxl)
 ```
 
 #### **`write_csv()` & `write_xlsx()`**
+
 These functions do the opposite: they save your R objects (like data frames) to files that can be shared or opened in other programs.
 
 ```{r}
@@ -201,7 +214,7 @@ library(writexl)
 # write_xlsx(list("Fish Survey" = fish_survey), "data/survey_output.xlsx")
 ```
 
----
+------------------------------------------------------------------------
 
 ### Case Study: The Silent Error
 
